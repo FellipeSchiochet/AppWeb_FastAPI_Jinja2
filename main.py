@@ -25,7 +25,8 @@ def get_flashed_messages(request: Request):
 # Rota para exibir o formulário de criação de item
 @app.get("/novo")
 def form_criar_item(request: Request):
-    return templates.TemplateResponse("create.html", {"request": request})
+    messages = get_flashed_messages(request) # <--- Recupera as mensagens flash para a tela de criação
+    return templates.TemplateResponse("create.html", {"request": request, "messages": messages})
 
 # Rota para criar um novo item
 @app.post("/criar")
@@ -33,8 +34,8 @@ def criar_item(request: Request, nome: str = Form(...), descricao: str = Form(..
     # Verifica se já existe um item com o mesmo nome (ignorando maiúsculas/minúsculas)
     for existing_item in itens:
         if existing_item["nome"].lower() == nome.lower():
-            request.session["flashed_messages"] = [{"type": "error", "message": f"Já existe um item com o nome \'{nome}\'."}]
-            return RedirectResponse("/novo", status_code=status.HTTP_303_SEE_OTHER)
+            request.session["flashed_messages"] = [{"type": "error", "message": f"Já existe um item com o nome \'{nome}\\'"}]
+            return RedirectResponse("/novo", status_code=status.HTTP_303_SEE_OTHER) # <--- Redireciona de volta para /novo
 
     global contador
     item = {"id": contador, "nome": nome, "descricao": descricao}
