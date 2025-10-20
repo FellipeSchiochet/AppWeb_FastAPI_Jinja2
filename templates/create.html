@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Novo Item{% endblock %}
+{% block content %}
+<h2>Novo Item</h2>
+<form action="/criar" method="post">
+    <label>Nome:</label><br>
+    <input type="text" name="nome" required><br><br>
+    <label>Descrição:</label><br>
+    <textarea name="descricao" required></textarea><br><br>
+    <button type="submit">Salvar</button>
+</form>
+{% endblock %}
