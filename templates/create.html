@@ -3,25 +3,16 @@
 {% block content %}
 <h2>Novo Item</h2>
 
-{# Bloco para exibir mensagens flash #}
-{% if messages %}
-<ul class="flashes">
-    {% for message in messages %}
-    <li class="{{ message.type }}">{{ message.message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-
 <form action="/criar" method="post">
-    <label>Nome:</label>
+    <label>Nome:</label>  
 
-    <input type="text" name="nome" required>
+    <input type="text" name="nome" required>  
+  
 
+    <label>Descrição:</label>  
 
-    <label>Descrição:</label>
-
-    <textarea name="descricao" required></textarea>
-
+    <textarea name="descricao" required></textarea>  
+  
 
     <button type="submit">Salvar</button>
 </form>
